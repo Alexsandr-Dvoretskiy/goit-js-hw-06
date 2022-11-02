@@ -18,26 +18,18 @@
 // Если пользователь заполнил все поля и отправил форму, собери значения полей в обьект, где имя поля будет именем свойства, а значение поля - значением свойства. Для доступа к элементам формы используй свойство elements.
 // Выведи обьект с введенными данными в консоль и очисти значения полей формы методом reset.
 
-const form = document.querySelector('form.login-form');
+const form = document.querySelector('.login-form');
 
 form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(event) {
   event.preventDefault();
-
-  const { email, password } = event.currentTarget.elements;
-  if (email.velue === '' || password.velue === '') {
-    alert('All fiends must de filled');
-    return;
+  const {
+    elements: { email, password },
+  } = event.currentTarget;
+  if (email.value === '' || password.value === '') {
+    return alert('Please fill in all the fields!');
   }
-
-  const formData = new FormData(event.currentTarget);
-
-  console.log(formData);
-
-  formData.forEach((value, name) => {
-    console.log('onFormSubmit -> name', name);
-    console.log('onFormSubmit -> value', value);
-  });
+  console.log({ Login: email.value, Password: password.value });
   event.currentTarget.reset();
 }
